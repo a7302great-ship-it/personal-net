@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>呂國睿 Kuo-Rui Lu | 科學教育與教學實踐個人網站</title>
+  <meta name="description" content="呂國睿的個人教育網站 - 國立臺灣師範大學科學教育研究所碩士生、中等教育學程師培生、自然科教育實務工作者。">
+  <!-- Google Fonts & Tailwind CSS CDN -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            academic: {
+              50: '#f0f4f9',
+              100: '#d9e2ec',
+              500: '#2b5278',
+              800: '#0f2942', // 主學術藍
+              900: '#091b2c',
+            },
+            warm: {
+              50: '#faf7f2',
+              100: '#f3ece1',
+              500: '#d97706',
+              600: '#b45309', // 大地暖色
+            },
+            leaf: {
+              50: '#f0fdf4',
+              500: '#22c55e',
+              600: '#16a34a', // 科學強調綠
+            }
+          },
+          fontFamily: {
+            sans: ['"Noto Sans TC"', 'Outfit', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* 輔助自訂微流暢動畫與聚焦樣式 */
+    html {
+      scroll-behavior: smooth;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+    }
+    :focus-visible {
+      outline: 3px solid #b45309;
+      outline-offset: 2px;
+    }
+    /* 時間軸連接線 */
+    .timeline-line::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 19px;
+      width: 2px;
+      background-color: #cbd5e1;
+      z-index: 0;
+    }
+  </style>
+</head>
+<body class="bg-academic-50 text-slate-800 font-sans leading-relaxed min-h-screen flex flex-col selection:bg-warm-100 selection:text-academic-800">
+
+  <!-- 無障礙快速跳至主內容 -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-warm-600 text-white px-4 py-2 rounded-lg z-50">跳至主要內容</a>
+
+  <!-- 頂部導覽列 Navigation -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md shadow-sm border-b border-slate-200/80">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16 sm:h-20">
+        <!-- Logo / 標題 -->
+        <a href="#" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 rounded-xl bg-academic-800 text-white flex items-center justify-center font-bold text-xl shadow-md group-hover:bg-warm-600 transition-colors">
+            睿
+          </div>
+          <div class="flex flex-col">
+            <span class="text-lg font-bold text-academic-900 tracking-wide group-hover:text-warm-600 transition-colors">呂國睿 Kuo-Rui</span>
+            <span class="text-xs text-slate-500 font-medium">NTNU Science Education</span>
+          </div>
+        </a>
+
+        <!-- 桌機選單 -->
+        <nav class="hidden md:flex items-center space-x-1 lg:space-x-2 text-base font-medium">
+          <a href="#about" class="px-3 py-2 rounded-lg text-slate-700 hover:text-academic-800 hover:bg-slate-100 transition-colors">關於我</a>
+          <a href="#experience" class="px-3 py-2 rounded-lg text-slate-700 hover:text-academic-800 hover:bg-slate-100 transition-colors">教育資歷</a>
+          <a href="#philosophy" class="px-3 py-2 rounded-lg text-slate-700 hover:text-academic-800 hover:bg-slate-100 transition-colors">教育理念</a>
+          <a href="#style" class="px-3 py-2 rounded-lg text-slate-700 hover:text-academic-800 hover:bg-slate-100 transition-colors">個人特色</a>
+          <a href="#resources" class="px-3 py-2 rounded-lg text-slate-700 hover:text-academic-800 hover:bg-slate-100 transition-colors">教學實踐</a>
+          <a href="#contact" class="ml-2 px-4 py-2 rounded-lg bg-academic-800 text-white hover:bg-academic-900 transition-colors shadow-sm">聯絡與交流</a>
+        </nav>
+
+        <!-- 手機版選單按鈕 -->
+        <div class="md:hidden">
+          <button id="mobile-menu-btn" type="button" class="p-2.5 rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none" aria-label="切換導覽選單" aria-expanded="false">
+            <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 手機版選單下拉內容 -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-1 shadow-lg">
+      <a href="#about" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-slate-700 hover:bg-academic-50 hover:text-academic-800 font-medium">關於我</a>
+      <a href="#experience" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-slate-700 hover:bg-academic-50 hover:text-academic-800 font-medium">教育資歷</a>
+      <a href="#philosophy" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-slate-700 hover:bg-academic-50 hover:text-academic-800 font-medium">教育理念</a>
+      <a href="#style" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-slate-700 hover:bg-academic-50 hover:text-academic-800 font-medium">個人特色</a>
+      <a href="#resources" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-slate-700 hover:bg-academic-50 hover:text-academic-800 font-medium">教學實踐</a>
+      <a href="#contact" class="mobile-nav-link block px-3 py-2.5 rounded-lg bg-academic-800 text-white text-center font-medium mt-2">聯絡與交流</a>
+    </div>
+  </header>
+
+  <!-- 主內容區塊 -->
+  <main id="main-content" class="flex-grow">
+
+    <!-- Hero 區塊：個人名片與精華介紹 -->
+    <section class="relative bg-gradient-to-b from-white via-academic-50 to-warm-50 py-16 sm:py-24 border-b border-slate-200/60 overflow-hidden">
+      <!-- 背景幾何裝飾 -->
+      <div class="absolute inset-0 opacity-10 pointer-events-none">
+        <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-academic-500 blur-3xl"></div>
+        <div class="absolute top-1/2 -right-24 w-80 h-80 rounded-full bg-warm-500 blur-3xl"></div>
+      </div>
+
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- 左側文字說明 -->
+          <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-warm-100 text-warm-600 text-sm font-semibold tracking-wide">
+              <span class="w-2 h-2 rounded-full bg-warm-500 animate-pulse"></span>
+              中等教育學程 師培生
+            </div>
+            
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-academic-900 tracking-tight leading-tight">
+              用科學探究點燃好奇心<br>
+              <span class="text-academic-500">用溫暖陪伴引導學習樂趣</span>
+            </h1>
+            
+            <p class="text-slate-600 text-lg sm:text-xl max-w-2xl mx-auto lg:mx-0">
+              我是 <strong class="text-academic-900 font-bold">呂國睿</strong>，現就讀於 <span class="font-semibold text-slate-800">國立臺灣師範大學科學教育研究所</span> 碩士班。具備國小自然與基金會輔導實務經驗，致力於整合科學專業與人文關懷。
+            </p>
+
+            <!-- 標籤特色 -->
+            <div class="flex flex-wrap gap-2.5 justify-center lg:justify-start pt-2">
+              <span class="px-3.5 py-1.5 bg-white border border-slate-200 rounded-lg text-sm text-slate-700 shadow-sm">🔬 自然科學探究</span>
+              <span class="px-3.5 py-1.5 bg-white border border-slate-200 rounded-lg text-sm text-slate-700 shadow-sm">💡 批判思考培養</span>
+              <span class="px-3.5 py-1.5 bg-white border border-slate-200 rounded-lg text-sm text-slate-700 shadow-sm">🤝 溫暖傾聽陪伴</span>
+              <span class="px-3.5 py-1.5 bg-white border border-slate-200 rounded-lg text-sm text-slate-700 shadow-sm">📘 生活化知識整合</span>
+            </div>
+
+            <div class="pt-4 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <a href="#philosophy" class="px-6 py-3.5 rounded-xl bg-academic-800 hover:bg-academic-900 text-white font-medium shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2">
+                <span>探索教育理念</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+              </a>
+              <a href="#experience" class="px-6 py-3.5 rounded-xl bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 font-medium transition-all text-center">
+                檢視經驗與學資
+              </a>
+            </div>
+          </div>
+
+          <!-- 右側形象卡片 -->
+          <div class="lg:col-span-5 flex justify-center">
+            <div class="w-full max-w-md bg-white rounded-2xl shadow-xl border border-slate-200/80 overflow-hidden p-6 sm:p-8 relative">
+              <div class="w-24 h-24 sm:w-28 sm:h-28 mx-auto rounded-full bg-gradient-to-tr from-academic-800 to-academic-500 text-white flex items-center justify-center text-4xl font-bold shadow-inner mb-6">
+                國睿
+              </div>
+              <div class="text-center space-y-2">
+                <h2 class="text-2xl font-bold text-academic-900">呂國睿 (Kuo-Rui Lu)</h2>
+                <p class="text-warm-600 font-medium text-sm">臺灣師大科教所碩士班 | 中等師培生</p>
+              </div>
+
+              <hr class="my-6 border-slate-100">
+
+              <div class="space-y-4 text-sm">
+                <div class="flex items-start gap-3">
+                  <span class="text-academic-500 mt-0.5">🎓</span>
+                  <div>
+                    <span class="block font-semibold text-slate-800">學術背景</span>
+                    <span class="text-slate-600">國立臺灣師範大學 科學教育研究所碩士班</span>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <span class="text-academic-500 mt-0.5">🌱</span>
+                  <div>
+                    <span class="block font-semibold text-slate-800">教學專業方向</span>
+                    <span class="text-slate-600">中等自然科學教學、探究導向教學設計</span>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <span class="text-academic-500 mt-0.5">🏫</span>
+                  <div>
+                    <span class="block font-semibold text-slate-800">實務服務經驗</span>
+                    <span class="text-slate-600">小學自然科代課教師、基金會輔導教師</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 關於我 About Me -->
+    <section id="about" class="py-16 sm:py-20 bg-white">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-2xl sm:text-3xl font-bold text-academic-900">關於呂國睿</h2>
+          <div class="w-12 h-1 bg-warm-600 mx-auto mt-3 rounded-full"></div>
+          <p class="text-slate-600 mt-4 max-w-2xl mx-auto">兼具科學思維的嚴謹性與教育對話的溫度，致力於搭起學術理論與第一線課堂實務的橋樑。</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-academic-50/70 p-6 rounded-2xl border border-slate-200/60 hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-academic-800 text-white rounded-xl flex items-center justify-center text-2xl mb-4">
+              📚
+            </div>
+            <h3 class="text-lg font-bold text-academic-900 mb-2">學術探究與專業進修</h3>
+            <p class="text-slate-600 text-sm">
+              在國立臺灣師範大學科學教育研究所中，深入研究科學學習心理、科學探究教學策略與課程設計；同時修習中等教育學程，深化中等學校教學知能。
+            </p>
+          </div>
+
+          <div class="bg-academic-50/70 p-6 rounded-2xl border border-slate-200/60 hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-academic-800 text-white rounded-xl flex items-center justify-center text-2xl mb-4">
+              🧪
+            </div>
+            <h3 class="text-lg font-bold text-academic-900 mb-2">國小自然科實務教學</h3>
+            <p class="text-slate-600 text-sm">
+              累積半年國小自然科兼任代課老師經驗，實際規劃課堂實驗與現場教學，善於引導學生動手操作、觀察現象並歸納科學概念。
+            </p>
+          </div>
+
+          <div class="bg-academic-50/70 p-6 rounded-2xl border border-slate-200/60 hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-academic-800 text-white rounded-xl flex items-center justify-center text-2xl mb-4">
+              ❤️
+            </div>
+            <h3 class="text-lg font-bold text-academic-900 mb-2">一對一與關懷輔導</h3>
+            <p class="text-slate-600 text-sm">
+              擁有一年基金會輔導老師資歷，長期照顧學生學習進度與心靈成長，養成極佳的傾聽技巧、耐心與高同理心的溝通風格。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 教育資歷時間軸 Experience Timeline -->
+    <section id="experience" class="py-16 sm:py-20 bg-slate-50 border-y border-slate-200/80">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-14">
+          <h2 class="text-2xl sm:text-3xl font-bold text-academic-900">教育資歷與修業軌跡</h2>
+          <div class="w-12 h-1 bg-warm-600 mx-auto mt-3 rounded-full"></div>
+          <p class="text-slate-600 mt-4">理論與實務並重，逐步扎根教育現場</p>
+        </div>
+
+        <div class="relative timeline-line pl-6 sm:pl-10 space-y-10">
+
+          <!-- 項目 1：台師大科教所與師培 -->
+          <div class="relative pl-6 sm:pl-8">
+            <div class="absolute -left-[31px] top-1.5 w-6 h-6 rounded-full bg-academic-800 border-4 border-white shadow"></div>
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+              <div class="flex flex-wrap justify-between items-start gap-2 mb-2">
+                <h3 class="text-xl font-bold text-academic-900">國立臺灣師範大學 科學教育研究所碩士班</h3>
+                <span class="px-3 py-1 bg-academic-100 text-academic-800 rounded-full text-xs font-semibold">現在就讀中</span>
+              </div>
+              <p class="text-warm-600 font-medium text-sm mb-3">修習中等教育學程（師培學生）</p>
+              <ul class="list-disc list-inside text-slate-600 text-sm space-y-1.5">
+                <li>研究方向涵蓋科學探究教學設計、學生科學概念理解與思考歷程。</li>
+                <li>積極參與師資培育課程，強化課堂管理、多元評量與教學媒體應用能力。</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 項目 2：國小自然科代課 -->
+          <div class="relative pl-6 sm:pl-8">
+            <div class="absolute -left-[31px] top-1.5 w-6 h-6 rounded-full bg-academic-500 border-4 border-white shadow"></div>
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+              <div class="flex flex-wrap justify-between items-start gap-2 mb-2">
+                <h3 class="text-xl font-bold text-academic-900">國小自然科 兼任代課老師</h3>
+                <span class="px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-xs font-semibold">歷練 0.5 年</span>
+              </div>
+              <p class="text-slate-500 text-sm mb-3">第一線自然科學教學與實作指導</p>
+              <ul class="list-disc list-inside text-slate-600 text-sm space-y-1.5">
+                <li>設計活潑具吸引力的科學實作課程，引導學童觀察生活周遭的科學現象。</li>
+                <li>負責實驗室安全防護與實驗設備操作帶領，培養學童科學安全習慣與團隊合作。</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 項目 3：基金會輔導老師 -->
+          <div class="relative pl-6 sm:pl-8">
+            <div class="absolute -left-[31px] top-1.5 w-6 h-6 rounded-full bg-warm-500 border-4 border-white shadow"></div>
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+              <div class="flex flex-wrap justify-between items-start gap-2 mb-2">
+                <h3 class="text-xl font-bold text-academic-900">教育基金會 輔導老師</h3>
+                <span class="px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-xs font-semibold">歷練 1 年</span>
+              </div>
+              <p class="text-slate-500 text-sm mb-3">學童個別化輔導與生活陪伴</p>
+              <ul class="list-disc list-inside text-slate-600 text-sm space-y-1.5">
+                <li>為學習適應困難學生進行個別課業診斷與補救教學，提升課業自信。</li>
+                <li>關懷學生心理狀態與生活適應，與家長保持溝通，建立親師生良好信賴關係。</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 教育理念與個人風格（互動卡片區） -->
+    <section id="philosophy" class="py-16 sm:py-20 bg-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center mb-12">
+          <h2 class="text-2xl sm:text-3xl font-bold text-academic-900">教育理念與個人風格</h2>
+          <div class="w-12 h-1 bg-warm-600 mx-auto mt-3 rounded-full"></div>
+          <p class="text-slate-600 mt-4">點選下方分頁，深入了解我的教學價值觀與個人特質</p>
+        </div>
+
+        <!-- 頁籤切換按鈕 -->
+        <div class="flex justify-center mb-8 border-b border-slate-200">
+          <div class="flex space-x-4">
+            <button id="tab-btn-1" onclick="switchTab('philosophy')" class="py-3 px-6 text-base font-bold text-academic-800 border-b-2 border-academic-800 focus:outline-none transition-colors">
+              Core Philosophy｜教育理念
+            </button>
+            <button id="tab-btn-2" onclick="switchTab('style')" class="py-3 px-6 text-base font-bold text-slate-500 hover:text-academic-800 border-b-2 border-transparent focus:outline-none transition-colors">
+              Personal Style｜個人風格
+            </button>
+          </div>
+        </div>
+
+        <!-- 分頁 1: 教育理念 -->
+        <div id="tab-content-philosophy" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-warm-50/60 rounded-2xl p-6 border border-warm-100 flex flex-col justify-between">
+            <div>
+              <div class="text-3xl font-extrabold text-warm-600 mb-3">01</div>
+              <h3 class="text-xl font-bold text-academic-900 mb-3">科學探究與生活連結</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">
+                科學不該死記公式與課本結論。我堅持引導學生從日常生活中發現問題，透過提問、假設與實作驗證，體驗「像科學家一樣思考」的樂趣。
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-warm-200/60 text-xs text-warm-600 font-medium">
+              #問題導向學習 #探究與實作
+            </div>
+          </div>
+
+          <div class="bg-academic-50/60 rounded-2xl p-6 border border-academic-100 flex flex-col justify-between">
+            <div>
+              <div class="text-3xl font-extrabold text-academic-500 mb-3">02</div>
+              <h3 class="text-xl font-bold text-academic-900 mb-3">批判思考與問題解決</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">
+                培養學生面對未知資訊時的判讀能力與邏輯思維。鼓勵學童對既有現象提出合理的質疑，並運用跨領域知識提出可行方案。
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-academic-200/60 text-xs text-academic-500 font-medium">
+              #高階思維訓練 #知識整合
+            </div>
+          </div>
+
+          <div class="bg-warm-50/60 rounded-2xl p-6 border border-warm-100 flex flex-col justify-between">
+            <div>
+              <div class="text-3xl font-extrabold text-warm-600 mb-3">03</div>
+              <h3 class="text-xl font-bold text-academic-900 mb-3">好奇心與自主學習</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">
+                守護每位孩子天生的好奇心。透過多元成功的學習體驗，讓學童建立內在學習動機，進而養成終身學習的探究態度。
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-warm-200/60 text-xs text-warm-600 font-medium">
+              #學習動機 #適性揚才
+            </div>
+          </div>
+        </div>
+
+        <!-- 分頁 2: 個人風格 (預設隱藏) -->
+        <div id="tab-content-style" class="hidden grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-academic-100 text-academic-800 flex items-center justify-center text-xl font-bold mb-4">🔬</div>
+              <h3 class="text-xl font-bold text-academic-900 mb-3">專業嚴谨</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">
+                以台師大科教所的學術訓能為後盾，設計符合認知發展規律的單元課程，教學內容求真求實，重視科學根據與正確觀念。
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-warm-100 text-warm-600 flex items-center justify-center text-xl font-bold mb-4">☀️</div>
+              <h3 class="text-xl font-bold text-academic-900 mb-3">溫暖親切</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">
+                延續一年基金會輔導實務，展現高度耐心與同理心。創造具備心理安全感的課堂氛圍，讓每個孩子都勇於發問與表達想法。
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-leaf-50 text-leaf-600 flex items-center justify-center text-xl font-bold mb-4">💬</div>
+              <h3 class="text-xl font-bold text-academic-900 mb-3">注重溝通與實作</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">
+                強調「做中學、學中思」。擅長進行雙向師生對話與同儕小組討論，尊重個體差異並給予及時且具體建設性的回饋。
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 教學實踐與探索單元 Resources & Practice Section -->
+    <section id="resources" class="py-16 sm:py-20 bg-academic-900 text-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center mb-12">
+          <span class="text-warm-500 font-semibold text-sm tracking-wider uppercase">Science Inquiry & Teaching</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">自然科學探究教學設計範例</h2>
+          <div class="w-12 h-1 bg-warm-500 mx-auto mt-3 rounded-full"></div>
+          <p class="text-slate-300 mt-4 max-w-2xl mx-auto">展現國睿在自然科現場如何將「生活現象」轉化為「課堂探究活動」</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+          <!-- 案例卡片 1 -->
+          <div class="bg-academic-800 rounded-2xl p-6 border border-academic-500/30 hover:border-warm-500/50 transition-colors flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-4">
+                <span class="px-3 py-1 rounded-full bg-academic-900 text-warm-500 text-xs font-bold">國小自然 / 生活水土</span>
+                <span class="text-xs text-slate-400">實作探究</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2">極限水滴與表面張力</h3>
+              <p class="text-slate-300 text-sm mb-4">
+                從「硬幣上能滴幾滴水？」趣味競爭出發，引導學童觀察水滴形狀變化，並設計對照組測試不同液體（清水分、肥皂水）的張力差異。
+              </p>
+            </div>
+            <div class="pt-4 border-t border-slate-700/80 text-xs text-slate-400">
+              💡 核心素養：觀察記錄、變因控制、實務結論歸納
+            </div>
+          </div>
+
+          <!-- 案例卡片 2 -->
+          <div class="bg-academic-800 rounded-2xl p-6 border border-academic-500/30 hover:border-warm-500/50 transition-colors flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-4">
+                <span class="px-3 py-1 rounded-full bg-academic-900 text-warm-500 text-xs font-bold">中等理化 / 能量轉換</span>
+                <span class="text-xs text-slate-400">專題導向</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2">手作簡易太陽能熱水器</h3>
+              <p class="text-slate-300 text-sm mb-4">
+                結合永續能源議題，提供廢棄鞋盒、鋁箔紙與黑色吸管，鼓勵學生自由嘗試吸收熱能效率最高的可行造型，並量測水溫變化曲線。
+              </p>
+            </div>
+            <div class="pt-4 border-t border-slate-700/80 text-xs text-slate-400">
+              💡 核心素養：工程設計流程、團隊合作、數據分析
+            </div>
+          </div>
+
+          <!-- 案例卡片 3 -->
+          <div class="bg-academic-800 rounded-2xl p-6 border border-academic-500/30 hover:border-warm-500/50 transition-colors flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-4">
+                <span class="px-3 py-1 rounded-full bg-academic-900 text-warm-500 text-xs font-bold">個別化輔導 / 思考診斷</span>
+                <span class="text-xs text-slate-400">關懷補救</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2">迷思概念對話解構法</h3>
+              <p class="text-slate-300 text-sm mb-4">
+                針對輔導學生常見的科學迷思（如「物體重量決定落下速度」），不直接給予答案，而是透過反例提問引導學生自我重構認知。
+              </p>
+            </div>
+            <div class="pt-4 border-t border-slate-700/80 text-xs text-slate-400">
+              💡 核心素養：認知診斷、耐心傾聽、建立自信
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 互動問答與教育對話 FAQ / Inquiry Interactive -->
+    <section class="py-16 sm:py-20 bg-slate-50 border-b border-slate-200">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-2xl sm:text-3xl font-bold text-academic-900">常見教育現場交流 QA</h2>
+          <div class="w-12 h-1 bg-warm-600 mx-auto mt-3 rounded-full"></div>
+        </div>
+
+        <div class="space-y-4">
+          <!-- Accordion 1 -->
+          <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+            <button onclick="toggleAccordion('faq-1')" class="w-full px-6 py-4 text-left font-bold text-academic-900 flex justify-between items-center focus:outline-none hover:bg-slate-50">
+              <span>Q1. 如何激發對自然科學較缺乏興趣或自信學生的學習動機？</span>
+              <span id="faq-1-icon" class="text-slate-400 font-bold transition-transform">+</span>
+            </button>
+            <div id="faq-1" class="hidden px-6 pb-4 pt-1 text-slate-600 text-sm border-t border-slate-100">
+              我會先降低起步門檻，從生活經驗（如料理現象、玩具原理）引入話題，並安排可立即獲得回饋的動手小任務。在基金會輔導過程中，我發現學生獲得讚賞與成就感後，自然會願意進一步深入思考現象背後的原理。
+            </div>
+          </div>
+
+          <!-- Accordion 2 -->
+          <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+            <button onclick="toggleAccordion('faq-2')" class="w-full px-6 py-4 text-left font-bold text-academic-900 flex justify-between items-center focus:outline-none hover:bg-slate-50">
+              <span>Q2. 身為科教所碩士生與師培生，如何平衡學術理論與課堂實務？</span>
+              <span id="faq-2-icon" class="text-slate-400 font-bold transition-transform">+</span>
+            </button>
+            <div id="faq-2" class="hidden px-6 pb-4 pt-1 text-slate-600 text-sm border-t border-slate-100">
+              學術理論為實務教學提供「方向與依據」（例如瞭解學生概念改變的認知歷程），而現場教學經驗則能「檢驗並滋養」理論研讀。我習慣將研究所學到的最新教學法（如探究式教學架構 5E Model）帶入小學現場嘗試，並透過課後反思持續修正。
+            </div>
+          </div>
+
+          <!-- Accordion 3 -->
+          <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+            <button onclick="toggleAccordion('faq-3')" class="w-full px-6 py-4 text-left font-bold text-academic-900 flex justify-between items-center focus:outline-none hover:bg-slate-50">
+              <span>Q3. 呂老師在教學時最重視哪一種課堂氣氛？</span>
+              <span id="faq-3-icon" class="text-slate-400 font-bold transition-transform">+</span>
+            </button>
+            <div id="faq-3" class="hidden px-6 pb-4 pt-1 text-slate-600 text-sm border-t border-slate-100">
+              最重視「心理安全感」與「熱烈探究的討論熱度」。在我的課堂裡沒有「愚蠢的問題」，只有「值得探討的新視角」。我鼓勵孩子表達未成熟的想法，與同儕共同激盪出正確答案。
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 聯絡與交流 Contact Section -->
+    <section id="contact" class="py-16 sm:py-20 bg-white">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center mb-12">
+          <h2 class="text-2xl sm:text-3xl font-bold text-academic-900">聯絡與教學交流</h2>
+          <div class="w-12 h-1 bg-warm-600 mx-auto mt-3 rounded-full"></div>
+          <p class="text-slate-600 mt-4">歡迎教育同好的交流、教學研討或合作邀請</p>
+        </div>
+
+        <div class="bg-academic-50/60 rounded-2xl p-6 sm:p-10 border border-slate-200 shadow-sm">
+          <!-- 聯絡訊息表單 -->
+          <form id="contact-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label for="name" class="block text-sm font-semibold text-slate-800 mb-2">您的姓名 / 單位</label>
+                <input type="text" id="name" required placeholder="例如：王小明 老師" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-warm-500 focus:border-warm-500 bg-white text-slate-800 text-sm transition-all">
+              </div>
+              <div>
+                <label for="email" class="block text-sm font-semibold text-slate-800 mb-2">電子郵件</label>
+                <input type="email" id="email" required placeholder="your.name@example.com" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-warm-500 focus:border-warm-500 bg-white text-slate-800 text-sm transition-all">
+              </div>
+            </div>
+
+            <div>
+              <label for="subject" class="block text-sm font-semibold text-slate-800 mb-2">交流主題</label>
+              <select id="subject" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-warm-500 focus:border-warm-500 bg-white text-slate-800 text-sm transition-all">
+                <option value="教學探究研討">自然科學探究教學研討</option>
+                <option value="教育經驗交流">輔導與教學經驗交流</option>
+                <option value="合作邀請">研習/教學合作邀請</option>
+                <option value="其他事項">其他事項諮詢</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="message" class="block text-sm font-semibold text-slate-800 mb-2">留言內容</label>
+              <textarea id="message" rows="4" required placeholder="請寫下您的訊息內容..." class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-warm-500 focus:border-warm-500 bg-white text-slate-800 text-sm transition-all"></textarea>
+            </div>
+
+            <div>
+              <button type="submit" class="w-full py-3.5 px-6 rounded-xl bg-academic-800 hover:bg-academic-900 text-white font-bold transition-colors shadow-md flex items-center justify-center gap-2">
+                <span>傳送交流訊息</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9-7-9-7-9 7 9 7z"></path></svg>
+              </button>
+            </div>
+          </form>
+
+          <!-- 訊息成功提示方塊 -->
+          <div id="form-success-msg" class="hidden mt-6 p-4 rounded-xl bg-leaf-50 border border-leaf-500/30 text-leaf-600 text-center text-sm font-medium">
+            ✅ 感謝您的留言！訊息已成功記錄，呂國睿老師將儘速回覆您。
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- 頁尾 Footer -->
+  <footer class="bg-academic-900 text-slate-400 py-10 border-t border-academic-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div class="text-center sm:text-left">
+          <p class="text-white font-bold text-base">呂國睿 (Kuo-Rui Lu)</p>
+          <p class="text-xs text-slate-400 mt-1">國立臺灣師範大學 科學教育研究所碩士班 | 中等教育學程師培生</p>
+        </div>
+        <div class="text-xs text-slate-500 text-center sm:text-right">
+          <p>© <span id="year"></span> 呂國睿 Kuo-Rui Lu. 版權所有.</p>
+          <p class="mt-0.5">專業學術與親切教育實務個人網站</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 原生 JavaScript 功能區 -->
+  <script>
+    // 設置頁尾年份
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // 手機版選單 Toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIconOpen = document.getElementById('menu-icon-open');
+    const menuIconClose = document.getElementById('menu-icon-close');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+      mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+      mobileMenu.classList.toggle('hidden');
+      menuIconOpen.classList.toggle('hidden');
+      menuIconClose.classList.toggle('hidden');
+    });
+
+    // 點擊手機選單連結時自動關閉選單
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        menuIconOpen.classList.remove('hidden');
+        menuIconClose.classList.add('hidden');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // 頁籤切換：教育理念 vs 個人風格
+    function switchTab(tabName) {
+      const btn1 = document.getElementById('tab-btn-1');
+      const btn2 = document.getElementById('tab-btn-2');
+      const contentPhilosophy = document.getElementById('tab-content-philosophy');
+      const contentStyle = document.getElementById('tab-content-style');
+
+      if (tabName === 'philosophy') {
+        contentPhilosophy.classList.remove('hidden');
+        contentStyle.classList.add('hidden');
+        
+        btn1.className = 'py-3 px-6 text-base font-bold text-academic-800 border-b-2 border-academic-800 focus:outline-none transition-colors';
+        btn2.className = 'py-3 px-6 text-base font-bold text-slate-500 hover:text-academic-800 border-b-2 border-transparent focus:outline-none transition-colors';
+      } else {
+        contentPhilosophy.classList.add('hidden');
+        contentStyle.classList.remove('hidden');
+
+        btn2.className = 'py-3 px-6 text-base font-bold text-academic-800 border-b-2 border-academic-800 focus:outline-none transition-colors';
+        btn1.className = 'py-3 px-6 text-base font-bold text-slate-500 hover:text-academic-800 border-b-2 border-transparent focus:outline-none transition-colors';
+      }
+    }
+
+    // QA 風琴選單 Accordion 邏輯
+    function toggleAccordion(id) {
+      const content = document.getElementById(id);
+      const icon = document.getElementById(`${id}-icon`);
+
+      if (content.classList.contains('hidden')) {
+        content.classList.remove('hidden');
+        icon.textContent = '−';
+      } else {
+        content.classList.add('hidden');
+        icon.textContent = '+';
+      }
+    }
+
+    // 聯絡表單前端邏輯 (不使用 alert)
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const successMsg = document.getElementById('form-success-msg');
+      const form = document.getElementById('contact-form');
+
+      // 顯示成功提示訊息
+      successMsg.classList.remove('hidden');
+      form.reset();
+
+      // 4秒後平滑隱藏提示
+      setTimeout(() => {
+        successMsg.classList.add('hidden');
+      }, 5000);
+    }
+  </script>
+</body>
+</html>
